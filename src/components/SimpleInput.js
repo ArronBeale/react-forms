@@ -1,20 +1,17 @@
-import { useEffect, useState } from 'react'; // Use useRef or useState, not both. ref for submission, state for active validation
+import { useState } from 'react'; // Use useRef or useState, not both. ref for submission, state for active validation
 
 const SimpleInput = (props) => {
   const [enteredName, SetEnteredName] = useState('');
   const [enteredNameTouched, setEnteredNameTouched] = useState(false);
-  const [formIsValid, setFormIsValid] = useState(false);
 
   const enteredNameIsValid = enteredName.trim() !== '';
   const nameInputIsInvalid = !enteredNameIsValid && enteredNameTouched;
 
-  useEffect(() => {
-    if (enteredNameIsValid) {
-      setFormIsValid(true);
-    } else {
-      setFormIsValid(false);
-    }
-  }, [enteredNameIsValid]);
+  let formIsValid = false;
+
+  if (enteredNameIsValid) {
+    formIsValid = true;
+  }
 
   const nameInputChangeHandler = (event) => {
     SetEnteredName(event.target.value);
